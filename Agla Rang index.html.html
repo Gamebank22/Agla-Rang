@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agla Rang</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Hind:wght@400;600&display=swap">
+<style>
+:root{--bg:#E9EEF7;--panel:#fff;--ink:#17203A;--mute:#55607F;--line:#C9D1E4;--c0:#F2A20C;--c1:#D6246E;--c2:#0E8C8E;--c3:#3A3AD1;--ok:#157A4A;--bad:#B3261E;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141A33;--panel:#1F2748;--ink:#EEF1FB;--mute:#A3ADCF;--line:#344070;--c0:#F7B733;--c1:#F0508F;--c2:#2FB5B7;--c3:#7A7AF5;--ok:#4CD08C;--bad:#FF7A70;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#141A33;--panel:#1F2748;--ink:#EEF1FB;--mute:#A3ADCF;--line:#344070;--c0:#F7B733;--c1:#F0508F;--c2:#2FB5B7;--c3:#7A7AF5;--ok:#4CD08C;--bad:#FF7A70;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hind",system-ui,sans-serif;font-size:17px;line-height:1.5;min-height:100vh}
+main{max-width:600px;margin:0 auto;padding:20px 16px 64px}
+h1{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:2.6rem;line-height:1;margin:8px 0 4px;letter-spacing:-.5px}
+h2{font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;margin:0 0 6px;font-size:1.6rem;line-height:1.2}
+h3{font-family:"Baloo 2",system-ui,sans-serif;font-weight:600;margin:20px 0 8px;font-size:1.15rem}
+.sub{margin:0 0 14px;color:var(--mute)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button{padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--ink);font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 6px;text-align:center}
+.stat b{display:block;font-family:"Baloo 2",system-ui,sans-serif;font-size:1.4rem;line-height:1.2}
+.stat span{font-size:.8rem;color:var(--mute)}
+.board{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px 16px}
+.q{margin:0 0 14px;font-weight:600}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:0 0 16px}
+.bar i{display:block;height:100%;background:var(--c2);transition:width .3s}
+.seq{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:56px;margin-bottom:22px}
+.dot{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:1.3rem;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.slot{border:3px dashed var(--mute);background:transparent;color:var(--mute);font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;text-shadow:none}
+.slot.pop{animation:pop .35s ease-out}
+@keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pick button{display:flex;align-items:center;gap:10px;padding:10px 12px;border:2px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+.pick button:hover:not(:disabled){border-color:var(--ink)}
+.pick button:disabled{cursor:default;opacity:.75}
+.pick .dot{width:36px;height:36px;font-size:1rem;flex:none}
+.msg{min-height:1.6em;margin:16px 0 0;text-align:center;font-weight:600}
+.msg.ok{color:var(--ok)}.msg.bad{color:var(--bad)}
+.center{text-align:center}
+.btn{margin:8px 4px 0;padding:12px 24px;border:2px solid var(--ink);border-radius:14px;background:var(--ink);color:var(--bg);font:inherit;font-weight:600;font-size:1.02rem;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.field{display:inline-flex;align-items:center;gap:8px;margin:8px 0}
+select,input[type=text]{font:inherit;padding:8px 10px;border:2px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (min-width:520px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px}
+.card b{display:block;font-family:"Baloo 2",system-ui,sans-serif;font-size:1.7rem;line-height:1.1}
+.card span{font-size:.85rem;color:var(--mute)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;border:2px solid var(--line);color:var(--mute);font-weight:600}
+.chip.on{background:var(--c2);border-color:var(--c2);color:#fff}
+.wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--mute);font-weight:600}
+.small{font-size:.85rem;color:var(--mute);margin:14px 0 0}
+.c0{background:var(--c0)}.c1{background:var(--c1)}.c2{background:var(--c2)}.c3{background:var(--c3)}
+.credit{position:fixed;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--mute);font-size:.8rem;font-weight:600}
+.fab{position:fixed;left:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:50px;height:50px;border-radius:50%;border:2px solid var(--line);background:var(--panel);color:var(--ink);font-size:1.4rem;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.fab:hover{border-color:var(--ink)}
+.toast{position:fixed;left:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));padding:6px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-weight:600;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+@media (prefers-reduced-motion:reduce){.slot.pop{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Agla Rang</h1>
+  <p class="sub">Pattern dekho, agla rang pakdo. Yahan jeet kismat se nahi, nazar se milti hai.</p>
+  <nav class="tabs" aria-label="Menu">
+    <button type="button" id="tp" aria-pressed="true">Khelo</button>
+    <button type="button" id="td" aria-pressed="false">Dashboard</button>
+  </nav>
+  <div id="pv">
+    <div class="stats">
+      <div class="stat"><b id="score">0</b><span>Score</span></div>
+      <div class="stat"><b id="streak">0</b><span>Streak</span></div>
+      <div class="stat"><b id="level">1</b><span>Level</span></div>
+      <div class="stat"><b id="lives">3</b><span>Mauke</span></div>
+    </div>
+    <section class="board" id="board" aria-live="polite"></section>
+  </div>
+  <section class="board" id="dash" hidden></section>
+  <div class="credit">game By FMP</div>
+  <button type="button" class="fab" id="snd" aria-pressed="true" aria-label="Sound band karo"><span id="sico" aria-hidden="true">🔊</span></button>
+  <div class="toast" id="toast" role="status" hidden></div>
+</main>
+<script>
+(function(){
+  var COL=[{n:'Peela',s:'●'},{n:'Gulabi',s:'▲'},{n:'Firozi',s:'■'},{n:'Neela',s:'★'}];
+  var P=[2,3,3,4,4,5,5,6,6,7],K=[2,3,3,4,4,4,4,4,4,4],MAXL=10,KEY='aglarang-v2';
+  function $(id){return document.getElementById(id)}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+  /* ---- saved progress (this browser) ---- */
+  function blank(){return{name:'',best:0,games:0,correct:0,wrong:0,bestStreak:0,maxLevel:1,hist:[]}}
+  function load(){try{var d=JSON.parse(localStorage.getItem(KEY));if(d&&typeof d==='object'){var b=blank();for(var k in b)if(d[k]!==undefined)b[k]=d[k];if(!Array.isArray(b.hist))b.hist=[];return b}}catch(e){}return blank()}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}}
+  var D=load(),S={score:0,streak:0,solved:0,lives:3,locked:true,startL:1},board=$('board'),timer;
+
+  /* ---- sound ---- */
+  var ac=null,muted=false;
+  var tt;
+  $('snd').addEventListener('click',function(){
+    muted=!muted;
+    $('sico').textContent=muted?'🔇':'🔊';
+    this.setAttribute('aria-pressed',String(!muted));
+    this.setAttribute('aria-label',muted?'Sound chalu karo':'Sound band karo');
+    var t=$('toast');t.textContent=muted?'Sound Off':'Sound On';t.hidden=false;
+    clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},1200);
+    if(!muted)snd(true);
+  });
+  function snd(ok){
+    try{
+      var A=window.AudioContext||window.webkitAudioContext;if(!A)return;
+      ac=ac||new A();if(ac.state==='suspended')ac.resume();
+      var t=ac.currentTime,notes=ok?[[523,0],[659,.12],[784,.24]]:[[196,0],[147,.18]];
+      notes.forEach(function(n){
+        var o=ac.createOscillator(),g=ac.createGain(),s=t+n[1],d=ok?.2:.32;
+        o.type=ok?'triangle':'sawtooth';o.frequency.value=n[0];
+        g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(ok?.25:.15,s+.02);g.gain.exponentialRampToValueAtTime(.0001,s+d);
+        o.connect(g);g.connect(ac.destination);o.start(s);o.stop(s+d+.05);
+      });
+    }catch(e){}
+  }
+
+  /* ---- tabs ---- */
+  function show(v){
+    var d=v==='dash';
+    $('pv').hidden=d;$('dash').hidden=!d;
+    $('tp').setAttribute('aria-pressed',String(!d));$('td').setAttribute('aria-pressed',String(d));
+    if(d)renderDash();
+  }
+  $('tp').addEventListener('click',function(){show('play')});
+  $('td').addEventListener('click',function(){show('dash')});
+
+  /* ---- game ---- */
+  function lvl(){return Math.min(1+Math.floor(S.solved/3),MAXL)}
+  function stats(){
+    $('score').textContent=S.score;$('streak').textContent=S.streak;
+    $('level').textContent=lvl();$('lives').textContent=S.lives;
+  }
+  function dot(i,extra){var d=el('div','dot c'+i+(extra?' '+extra:''),COL[i].s);d.setAttribute('role','img');d.setAttribute('aria-label',COL[i].n);return d}
+  function home(){
+    clearTimeout(timer);S={score:0,streak:0,solved:0,lives:3,locked:true,startL:D.maxLevel};stats();
+    board.textContent='';
+    var box=el('div','center');
+    box.appendChild(el('h2',null,D.name?'Namaste, '+D.name+'!':'Tayyar ho?'));
+    box.appendChild(el('p',null,'Ab tak ka sabse unchaa level: '+D.maxLevel+' (kul '+MAXL+'). Best score: '+D.best+'.'));
+    var f=el('label','field','Shuru level ');f.setAttribute('for','sl');
+    var sel=el('select');sel.id='sl';
+    for(var i=1;i<=D.maxLevel;i++){var o=el('option',null,'Level '+i);o.value=i;sel.appendChild(o)}
+    sel.value=D.maxLevel;f.appendChild(sel);box.appendChild(f);box.appendChild(el('br'));
+    var b=el('button','btn','Khel shuru karo');b.type='button';
+    b.addEventListener('click',function(){start(+sel.value)});
+    box.appendChild(b);board.appendChild(box);
+  }
+  function start(l){
+    S={score:0,streak:0,solved:(l-1)*3,lives:3,locked:false,startL:l,played:false};
+    stats();next();
+  }
+  function next(){
+    var lv=lvl(),p=P[lv-1],k=K[lv-1];
+    var pool=shuffle([0,1,2,3]).slice(0,k),cyc=pool.slice();
+    while(cyc.length<p)cyc.push(pool[Math.floor(Math.random()*k)]);
+    shuffle(cyc);
+    var n=p<4?p*2+1:p+3;
+    S.ans=cyc[n%p];S.locked=false;
+    board.textContent='';
+    board.appendChild(el('p','q','Level '+lv+': agla rang kaun sa hoga?'));
+    var bar=el('div','bar'),fill=el('i');fill.style.width=((S.solved%3)/3*100)+'%';
+    bar.appendChild(fill);bar.setAttribute('role','presentation');board.appendChild(bar);
+    var seq=el('div','seq');
+    for(var i=0;i<n;i++)seq.appendChild(dot(cyc[i%p]));
+    var slot=el('div','dot slot','?');slot.id='slot';slot.setAttribute('aria-label','Agla rang, abhi chhupa hai');
+    seq.appendChild(slot);board.appendChild(seq);
+    var pick=el('div','pick');
+    COL.forEach(function(c,i){
+      var b=el('button');b.type='button';b.appendChild(dot(i));b.appendChild(el('span',null,c.n));
+      b.addEventListener('click',function(){answer(i,pick)});
+      pick.appendChild(b);
+    });
+    board.appendChild(pick);
+    board.appendChild(el('p','msg'));
+  }
+  function answer(i,pick){
+    if(S.locked)return;S.locked=true;
+    var ok=i===S.ans,msg=board.querySelector('.msg'),slot=$('slot');
+    Array.prototype.forEach.call(pick.children,function(b){b.disabled=true});
+    slot.className='dot slot pop c'+S.ans;slot.textContent=COL[S.ans].s;slot.style.border='0';
+    slot.setAttribute('aria-label',COL[S.ans].n);
+    if(!S.played){S.played=true;D.games++}
+    if(ok){
+      var pts=10+5*lvl()+Math.min(S.streak,5)*2;
+      S.score+=pts;S.streak++;S.solved++;D.correct++;
+      if(S.streak>D.bestStreak)D.bestStreak=S.streak;
+      if(lvl()>D.maxLevel)D.maxLevel=lvl();
+      msg.className='msg ok';msg.textContent='Sahi! +'+pts+' points';
+    }else{
+      S.lives--;S.streak=0;D.wrong++;
+      msg.className='msg bad';msg.textContent='Galat. Sahi jawab tha: '+COL[S.ans].n;
+    }
+    if(S.score>D.best)D.best=S.score;
+    save();if(!muted)snd(ok);stats();
+    clearTimeout(timer);
+    timer=setTimeout(function(){S.lives>0?next():over()},1300);
+  }
+  function over(){
+    D.hist.unshift({d:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short'}),s:S.score,l:lvl()});
+    D.hist=D.hist.slice(0,8);save();
+    board.textContent='';
+    var box=el('div','center');
+    box.appendChild(el('h2',null,'Khel khatam'));
+    box.appendChild(el('p',null,'Score: '+S.score+'. Level '+lvl()+' tak pahunche.'));
+    box.appendChild(el('p',null,'Best score: '+D.best+' | Sabse unchaa level: '+D.maxLevel));
+    var a=el('button','btn','Dobara khelo');a.type='button';a.addEventListener('click',home);
+    var d=el('button','btn ghost','Dashboard dekho');d.type='button';d.addEventListener('click',function(){show('dash')});
+    box.appendChild(a);box.appendChild(d);board.appendChild(box);a.focus();
+  }
+
+  /* ---- dashboard ---- */
+  function card(v,l){var c=el('div','card');c.appendChild(el('b',null,v));c.appendChild(el('span',null,l));return c}
+  function renderDash(){
+    var r=$('dash'),tot=D.correct+D.wrong,acc=tot?Math.round(D.correct*100/tot):0;
+    r.textContent='';
+    r.appendChild(el('h2',null,D.name?D.name+' ka dashboard':'Tumhara dashboard'));
+    var f=el('label','field','Player ka naam ');f.setAttribute('for','nm');
+    var inp=el('input');inp.type='text';inp.id='nm';inp.maxLength=20;inp.value=D.name;inp.placeholder='Apna naam likho';
+    inp.addEventListener('input',function(){D.name=inp.value.trim();save()});
+    f.appendChild(inp);r.appendChild(f);
+    var g=el('div','cards');
+    g.appendChild(card(D.best,'Best score'));
+    g.appendChild(card(D.maxLevel+'/'+MAXL,'Sabse unchaa level'));
+    g.appendChild(card(D.games,'Games khele'));
+    g.appendChild(card(acc+'%','Sahi jawab ka %'));
+    g.appendChild(card(D.correct,'Kul sahi jawab'));
+    g.appendChild(card(D.bestStreak,'Sabse lambi streak'));
+    r.appendChild(g);
+    r.appendChild(el('h3',null,'Level map'));
+    var ch=el('div','chips');
+    for(var i=1;i<=MAXL;i++){var c=el('div','chip'+(i<=D.maxLevel?' on':''),i);c.setAttribute('aria-label','Level '+i+(i<=D.maxLevel?', pahunch gaye':', abhi baaki'));ch.appendChild(c)}
+    r.appendChild(ch);
+    r.appendChild(el('h3',null,'Pichhle games'));
+    if(!D.hist.length){r.appendChild(el('p','sub','Abhi koi game nahi khela. Khelo tab me jaakar shuru karo.'))}
+    else{
+      var w=el('div','wrap'),t=el('table'),h=el('tr');
+      ['Tareekh','Score','Level'].forEach(function(x){h.appendChild(el('th',null,x))});
+      t.appendChild(h);
+      D.hist.forEach(function(x){var tr=el('tr');tr.appendChild(el('td',null,x.d));tr.appendChild(el('td',null,x.s));tr.appendChild(el('td',null,x.l));t.appendChild(tr)});
+      w.appendChild(t);r.appendChild(w);
+    }
+    var rb=el('button','btn ghost','Progress reset karo');rb.type='button';var armed=false,tm;
+    rb.addEventListener('click',function(){
+      if(!armed){armed=true;rb.textContent='Pakka? Dobara dabao';tm=setTimeout(function(){armed=false;rb.textContent='Progress reset karo'},4000);return}
+      clearTimeout(tm);D=blank();save();renderDash();home();
+    });
+    r.appendChild(rb);
+  }
+  home();
+})();
+</script>
+</body>
+</html>
