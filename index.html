@@ -83,7 +83,7 @@ th{color:var(--mute);font-weight:600}
 .t0{--tc:var(--c0)}.t1{--tc:var(--bad)}.t2{--tc:var(--c3)}
 .flames{font-size:2.6rem;line-height:1.2}
 .tier{margin:0 0 6px;font-family:"Baloo 2",system-ui,sans-serif;font-weight:800;font-size:1.9rem;line-height:1.1;color:var(--tc)}
-.credit{position:fixed;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--mute);font-size:.8rem;font-weight:600}
+.credit{position:fixed;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding:4px 10px;border:1px solid #C9D1E4;border-radius:999px;background:#fff;color:#000;font-size:.8rem;font-weight:600}
 .fab{position:fixed;left:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:50px;height:50px;border-radius:50%;border:2px solid var(--line);background:var(--panel);color:var(--ink);font-size:1.4rem;line-height:1;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .toast{position:fixed;left:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));padding:6px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-weight:600;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -107,7 +107,7 @@ th{color:var(--mute);font-weight:600}
     <section class="board" id="board" aria-live="polite"></section>
   </div>
   <section class="board" id="dash" hidden></section>
-  <div class="credit">game By FMP</div>
+  <div class="credit">Game By FMP</div>
   <button type="button" class="fab" id="snd" aria-pressed="true" aria-label="Sound band karo"><span id="sico" aria-hidden="true">🔊</span></button>
   <div class="toast" id="toast" role="status" hidden></div>
 </main>
